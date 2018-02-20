@@ -8,15 +8,15 @@ var output = require("./log.txt");
 var log = require("log")
 
 //tokens from keys file
-var twitToken = keys["twitterToken"];
-var spotToken = keys["spotofyToken"];
+var twitToken = tokens["twitterToken"];
+var spotToken = tokens["spotifyToken"];
 var twitter = new Twitter(twitToken);
 var spotify = new Spotify(spotToken);
 
 //commands
 var command = process.argv[2];
 var argument = process.argv.slice(3);
-var title = args.join("+");
+var title = argument.join("+");
 var params = { screen_name: 'DevToyosi', count: 20 };
 
 function whatToDo(){
@@ -56,7 +56,7 @@ function showTweets(params) {
 //Displays Song info
 function spotifyPlay(songName) {
   if (songName != "") {
-    spotify.search({ type: 'track', query: songName }, functon(error, data)
+    spotify.search({ type: 'track', query: songName}, function(error, data){
       if(error) {
         return console.log('Error Occured: ' + error);
       }
@@ -68,8 +68,9 @@ function spotifyPlay(songName) {
       console.log("Album " + songInfo.album.name);
       console.log("-----------------------");
     });
+
   }else{
-    spotify.search({ type: 'track', query: "The+Sign+ace+of+base"}, functon (err, data)
+    spotify.search({ type: 'track', query: "The+Sign+ace+of+base"}, function (err, data){
       if(error) {
         return console.log('Error Occured: ' + error);
       }
@@ -82,8 +83,9 @@ function spotifyPlay(songName) {
       console.log("Album " + songInfo.album.name);
       console.log("-----------------------");
     });
+}
 
-
+}
 
     function showMovie(movieInfo) {
       var queryUrl = "http://www.omdbapi.com/?apikey=" + movieInfo + "&y=&plot=short&apikey=40e9cece";
