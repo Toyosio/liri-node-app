@@ -56,7 +56,7 @@ function logIt(logData) {
   });
 };
 
-//Displays last twenty tweets 
+//Displays last twenty tweets
 function showTweets(params) {
   twitter.get('statuses/user_timeline', params, function(error,tweets, response) {
     if(!error) {
@@ -68,8 +68,38 @@ function showTweets(params) {
         console.log("--------------------");
         console.log("tweet: "+tweets);
         console.log("Time Created: "+timeTrim);
+        console.log("--------------------");
 
       }
     }
   });
-}
+};
+
+function spotifyThisSong(songName){
+  if (songName !=""){
+  spotify.search({ type: 'track', query: songName}, functon(error, data){
+    if(error) {
+      return console.log('Error Occured: ' + err);
+    },
+    var songInfo = data.tracks.items[0];
+    console.log("-----------------------");
+    console.log("Artist: "+ songInfo.artists[0].name);
+    console.log("Song: "+ songInfo.name);
+    console.log("Preiew Link "+ songInfo.external_urls.spotify);
+    console.log("Album "+ songInfo.album.name);
+    console.log("-----------------------");
+  });
+}else{
+  spotify.search({ type: 'track', query: songName}, functon(err, data) {
+    if (err) {
+      return console.log('Error Occured: ' + err);
+    }
+    var songInfo = data.tracks.items[0];
+    console.log("Oops Can't find your song! Check out this oldie but goddie!");
+    console.log("-----------------------");
+    console.log("Artist: "+ songInfo.artists[0].name);
+    console.log("Song: "+ songInfo.name);
+    console.log("Preiew Link "+ songInfo.external_urls.spotify);
+    console.log("Album "+ songInfo.album.name);
+    console.log("-----------------------");
+  });
